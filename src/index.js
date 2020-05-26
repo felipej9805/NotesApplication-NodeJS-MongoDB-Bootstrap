@@ -3,11 +3,11 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const session = require('express-session');
-//Initialization *******************************************
+//Initialization *****************************************************************************
 const app = express();
 require('./database');
 
-//Settings**************************************************
+//Settings************************************************************************************
 app.set('port', process.env.PORT || 3000);
 
 /**
@@ -38,7 +38,7 @@ app.set('view engine', '.hbs');
 
 
 
-//Middlewares************************************************
+//Middlewares*******************************************************************************
 
 /**
  *Sirve para que un formulario quiera enviarme cierto dato, puedo entenderlo. El correo yo quiero recibir esos datos
@@ -68,10 +68,10 @@ app.use(session({
 
 
 
-//Global Variables ******************************************
+//Global Variables ***************************************************************************
 
 
-//Routes ****************************************************
+//Routes *************************************************************************************
 /**
  * Se crean tres archivos en la carpeta routes(index.js, notes.js, users.js) Iran las rutas 
  * 
@@ -90,7 +90,7 @@ app.use(require('./routes/notes'));
 app.use(require('./routes/users'));
 
 
-//Static Files***********************************************
+//Static Files********************************************************************************
 
 /**
  * Empezar a configurar los archivos estaticos, la carpeta public
@@ -98,7 +98,7 @@ app.use(require('./routes/users'));
  */
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Server is listening****************************************
+//Server is listening**************************************************************************
 app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));
 });
