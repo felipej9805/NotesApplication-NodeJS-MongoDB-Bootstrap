@@ -1,0 +1,10 @@
+<!--Recorrer esta variable global llamada success-msg y tenemos que usar el if porque no es un arreglo
+Si exite un mensaje satisfactorio con el texto del mensaje y es el mismo success-msg. Crea una alerta con el mensaje-->
+{{#if success_msg}}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{success_msg}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{{/if}}
