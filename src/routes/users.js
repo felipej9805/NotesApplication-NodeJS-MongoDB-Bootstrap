@@ -7,6 +7,7 @@ const express = require('express');
 const router = express.Router();
 
 const User = require('../models/User');
+const passport = require('passport');
 
 /**
  *Esta ruta es para que el usuario pueda ingregsar e ingresar a nuestra aplicacion
@@ -17,12 +18,28 @@ router.get('/users/signin', (req, res) => {
 });
 
 /**
+ * Desde la ruta  signin, voy a tratar de autenticar al usuario
+ * Hemos creado una estrategia de autenticacion
+ * local --> Nombre de autenticacion es local
+ * Y va llamar lo del passport
+ * failure flash: Enviarle los mensajes
+ */
+router.post('/users/signin', passport.authenticate('local', {
+    successRedirect: '/notes',
+    failureRedirect: '/users/signin',
+    failureFlash: true
+}));
+
+/**
  *Esta ruta es para que el usuario necesita para poder registrarse, formulario de autenticacion
  *Vamos a renderizar el archivo signUP dentro de la carpeta users
  */
 router.get('/users/signup', (req, res) => {
     res.render('users/signup');
 });
+
+
+
 
 /**
  * Recibir los datos del signup

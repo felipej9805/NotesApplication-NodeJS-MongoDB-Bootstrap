@@ -1,40 +1,33 @@
-<div class="col-md-4 mx-auto"> <!-- Dentro de una columna de 4, y el contenido centrado mx-auto -->
+<div class="col-md-4 mx-auto">
+    <!-- Dentro de una columna de 4, y el contenido centrado mx-auto -->
     <div class="card">
         <div class="card-header">
             <h3>New Note</h3>
         </div>
+
         <div class="card-body">
-                <form action="/notes/new-note" method="POST"> <!-- La vas enviar a dicha ruta, por medio de POST-->
+            <form action="/notes/new-note" method="POST">
+                <!-- La vas enviar a dicha ruta, por medio de POST-->
                 <!-- Para que los input esten separados dentro de un form-group, propiedad name en que el servidor
                 lo recibe, y el valor que escribamos, propiedad autofocus para que quede parpadeando apenas carga-->
-                <div class="form-group" >
-                    <input 
-                    type="text" 
-                    name="title" 
-                    class="form-control" 
-                    placeholder="Title" 
-                    autofocus>
+                <div class="form-group">
+                    <input type="text" name="title" class="form-control" placeholder="Title" autofocus>
                 </div>
 
                 <!-- form control se adecua al tamaño de pantalla, text-area se puede cambiar de tamaño-->
                 <div class="form-group">
-                    <textarea 
-                    name="description" 
-                    class="form-control" 
-                    placeholder="Description"></textarea>
+                    <textarea name="description" class="form-control" placeholder="Description"></textarea>
                 </div>
 
                 <!-- btn btn-primary color azul, btn-block para que ocupe todo el ancho disponible, submit ejecute
                 el evento del formulario -->
                 <div class="form-group">
-                    <button 
-                    class="btn btn-primary btn-block" 
-                    type="submit">
+                    <button class="btn btn-primary btn-block" type="submit">
                         Save
                     </button>
                 </div>
-                
-                </form>
+
+            </form>
         </div>
     </div>
 </div>
