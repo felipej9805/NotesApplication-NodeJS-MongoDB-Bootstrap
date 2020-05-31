@@ -10,11 +10,17 @@ const router = express.Router();
  * Y la tenemos que instanciar
  */
 const Note = require("../models/Note");
+
+
+const {isAuthenticated} = require('../helpers/auth');
 /**
  * Ruta que le permita al usuario ver el formulario, que vea el formulario en esta ruta
  * Entra a la carpeta notes/ y toma el archivo new-note
+ * El isAuthenticated lo que hace es si el usuario visita esta ruta, si esta logueado, va seguir con la funcion
+ * Sino lo redirecciona a una ventaja de logueo. 
+ * Es por eso que se pone antes de la funcion
  */
-router.get("/notes/add", (req, res) => {
+router.get("/notes/add", isAuthenticated, (req, res) => {
     res.render("notes/new-note");
 });
 
@@ -23,7 +29,7 @@ router.get("/notes/add", (req, res) => {
  * Y si existe algun error en uno de los campos, muestra un mensaje, y si todo esta bien, los almacena en la BD
  * La palabra clave async le dice a la funcion que habran procesos asincronos
  */
-router.post("/notes/new-note", async (req, res) => {
+router.post("/notes/new-note",isAuthenticated, async (req, res) => {
     const { title, description } = req.body;
     const errors = [];
     if (!title) {
@@ -41,6 +47,7 @@ router.post("/notes/new-note", async (req, res) => {
         });
     } else {
         const newNote = new Note({ title, description });
+        newNote.user = req.user.id;
         /**
          * Cuando operamos con una bd, no sabemos cuando va terminar, node asincrono, muchas tareas a medida que otros procesos terminan
          * Guarda dentro de mongo db, y toma algunos segundos, no quiero que se quede esperando. Quiero que sea petiicion asincrona
@@ -61,12 +68,12 @@ router.post("/notes/new-note", async (req, res) => {
  * Cuando visite esta ruta  consulte la bd y le paso la vista con las nota de la bd
  * Al momento de recorrerlo yo puedo acceder a sus propiedades. sort es para mostrarlos en el orden de creaciòn
  */
-router.get("/notes", async (req, res) => {
-    const notes = await Note.find().sort({ date: "desc" });
+router.get("/notes", isAuthenticated, async (req, res) => {
+    const notes = await Note.find({user: req.user.id}).sort({ date: "desc" });
     res.render("notes/all-notes", { notes });
 });
 
-router.get("/notes/edit/:id", async (req, res) => {
+router.get("/notes/edit/:id", isAuthenticated,  async (req, res) => {
     const note = await Note.findById(req.params.id);
     res.render("notes/edit-note", { note });
 });
@@ -79,7 +86,7 @@ router.get("/notes/edit/:id", async (req, res) => {
  * Cuando se actualice redirecciono a las notas
  */
 
-router.put("/notes/edit-note/:id", async (req, res) => {
+router.put("/notes/edit-note/:id", isAuthenticated, async (req, res) => {
     const { title, description } = req.body;
     await Note.findByIdAndUpdate(req.params.id, { title, description });
     req.flash('success_msg', 'Note Updated Successfully')
@@ -89,7 +96,7 @@ router.put("/notes/edit-note/:id", async (req, res) => {
 /**
  * Para eliminar vamos a tener que usar un formulario
  */
-router.delete('/notes/delete/:id', async (req, res) => {
+router.delete('/notes/delete/:id', isAuthenticated,  async (req, res) => {
     await Note.findByIdAndDelete(req.params.id);
     req.flash('success_msg', 'Note Deleted Successfully')
     res.redirect('/notes')
