@@ -1,1 +1,1 @@
-MONGO_URL=mongodb://172.17.0.2/notes-db-app
+MONGO_URL=mongodb://localhost/notes-db-app
