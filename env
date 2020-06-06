@@ -1,1 +1,2 @@
-MONGO_URL=mongodb://localhost/notes-db-app
+MONGO_URL=mongodb+srv://root:Password1@cluster0-w94cx.mongodb.net/test?retryWrites=true&w=majority
+MONGO_DOCKER='mongodb://172.17.0.2/notes-db-app';
