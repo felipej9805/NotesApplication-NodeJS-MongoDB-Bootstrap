@@ -5,11 +5,10 @@ const mongoose = require('mongoose');
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/notes-db-app';
 
-
-/**
+ /**
  * Coenctarme a una direccion de internet, mongodb conectate a localhost y al nombre de la base de datos, si no existe
  * la crea
- * Objeto para configurarl
+ * Objeto para configurarl 
  * userCreateIndex
  * useNewUrlParser
  * UseFindAndModify

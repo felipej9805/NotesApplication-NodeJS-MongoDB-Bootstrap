@@ -6,6 +6,8 @@ const session = require('express-session');
 const Handlebars = require('handlebars')
 const flash = require('connect-flash');
 const passport = require('passport');
+require("dotenv").config();  
+
 
 //Initialization *****************************************************************************
 const app = express();
